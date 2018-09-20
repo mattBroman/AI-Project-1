@@ -15,9 +15,9 @@ Blocks::Blocks(fstream& file) {
     int nBlocks = stoi(input.substr(spaceLoc));
 
     while (getline(file, input)) {
-        vector<char> row;
+        stack<char> row;
         for ( char c : input) {
-            row.push_back(c);
+            row.push(c);
         }
         if (nTowers > 0) {
             towers.push_back(row);
@@ -30,23 +30,52 @@ Blocks::Blocks(fstream& file) {
 
     if (goal.size() != towers.size()) {
         for (int i = 0; i < (towers.size() - goal.size()); i++) {
-            goal.push_back(vector<char>(0));
+            goal.push_back(stack<char>());
         } 
+    }
+}
+
+Blocks::Blocks(vector<stack<char>> towers, vector<stack<char>> goal) {
+    
+}
+
+vector<Blocks*> Blocks::moves() {
+    vector<Blocks*> returnVector;
+    for (int i = 0; i < towers.size(); i++) {
+        char tower = towers[i].top();
+        towers[i].pop();
+        for (int j = 0; j < towers.size(); j++) {
+            
+        }
     }
 }
 
 void Blocks::display() {
     cout << "entry was----------------" << endl;
-    for (vector<char> row : towers) {
-        for (char c : row) {
-            cout << c;
+    for (stack<char> row : towers) {
+        stack<char> tempStack;
+        while (!row.empty()) {
+            char temp = row.top();
+            row.pop();
+        }
+        while (!tempStack.empty()) {
+            char temp = tempStack.top();
+            cout << temp;
+            row.push(temp);
         }
     cout << endl;
     }
     cout << "goal is ---------------------" << endl;
-    for (vector<char> row : goal) {
-        for (char c : row) {
-            cout << c;
+        for (stack<char> row : towers) {
+        stack<char> tempStack;
+        while (!row.empty()) {
+            char temp = row.top();
+            row.pop();
+        }
+        while (!tempStack.empty()) {
+            char temp = tempStack.top();
+            cout << temp;
+            row.push(temp);
         }
     cout << endl;
     }
