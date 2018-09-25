@@ -47,7 +47,6 @@ Blocks::Blocks(vector<vector<char>>& towers, vector<vector<char>>& goal, int nBl
         vector<char> vec;
         this->goal.push_back(vec);
     }
-    
     for (int i = 0; i < towers.size(); i++) {
         for (int j = 0; j < towers[i].size(); j++) {
             this->towers[i].push_back(towers[i][j]);
@@ -58,6 +57,17 @@ Blocks::Blocks(vector<vector<char>>& towers, vector<vector<char>>& goal, int nBl
             this->goal[i].push_back(goal[i][j]);
         }
     }
+}
+
+string Blocks::genHashKey() {
+    stringstream key;
+    for (int i = 0; i < towers.size(); i++) {
+        for (int j = 0; j < towers[i].size(); j++) {
+            key << towers[i][j];
+        }
+        key << '\n';
+    }
+    return key.str();
 }
 
 vector<Blocks*> Blocks::moves() {

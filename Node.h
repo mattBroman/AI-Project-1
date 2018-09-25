@@ -11,10 +11,11 @@ class Node {
         Blocks* blocks;
         Node* parent;
         std::vector<Node*> children;
-        int iteration;
         int huristic;
     public:
+        int iteration;
         Node(std::fstream* file);
+        std::string hashKey;
         Node(Blocks* blocks, Node* parent, int iteration);
         std::vector<Node*> getChildren();
         bool solution();

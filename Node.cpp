@@ -3,6 +3,7 @@ using namespace std;
 
 Node::Node(fstream* file) {
     blocks = new Blocks(*file);
+    this->hashKey = blocks->genHashKey();
     parent = nullptr;
     iteration = 0;
     huristic = getHuristic();
@@ -11,6 +12,7 @@ Node::Node(fstream* file) {
 Node::Node(Blocks* blocks, Node* parent, int iteration) {
     this->parent = parent;
     this->blocks = blocks;
+    this->hashKey = blocks->genHashKey();
     this->iteration = ++iteration;
     huristic = getHuristic();
 
@@ -47,9 +49,26 @@ int Node::getHuristic() {
             int yScore = abs(j - element->second.second);
             double distance = sqrt(pow(xScore,2) + pow(yScore,2));
             if (distance == 0) {
-                distance = -1;
+                bool stacked = true;
+                for (int k = 0; k < j; k++) {
+                    if (towers[i][k] != goal[i][k]) {
+                        stacked = false;
+                        break;
+                    }
+                }
+                if (stacked) {
+                    score -=  (goal[i].size()) * 2;
+                }
+                else {
+                    score += goal[i].size() - j;
+                }
             }
-            score += distance;     
+            else if (xScore != 0) {
+                score +=  towers[element->second.first].size();
+            }
+            else {
+                score += towers[i].size() * distance;
+            }     
         }
     }
     return score;

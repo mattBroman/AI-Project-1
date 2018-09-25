@@ -20,4 +20,5 @@ class Blocks {
         std::vector<Blocks*> moves();
         std::vector<std::vector<char>> getTowers();
         std::vector<std::vector<char>> getGoal();
+        std::string genHashKey();
 };

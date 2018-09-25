@@ -19,8 +19,10 @@ int main(int argc, char** argv) {
     else {
         cout << "solution found" << endl;
         stack<Node*> path;
+        int pathlength = 0;
         while (solution != nullptr) {
             Node* node = solution;
+            pathlength++;
             path.push(node);
             solution = solution->getParent();
         }
@@ -28,6 +30,10 @@ int main(int argc, char** argv) {
             path.top()->display();
             path.pop();
         }
+        cout << "MaxQueueSize: " << tree->maxFrontierSize << endl;
+        cout << "Number of Goal Tests: " << tree->nGoalTests << endl;
+        cout << "Path Length: " << pathlength << endl;
+        cout << "Iterations: " << tree->iterations << endl;;
         return 0;
     }
 }
